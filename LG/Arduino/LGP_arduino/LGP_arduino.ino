@@ -1,14 +1,15 @@
 #include <SoftwareSerial.h>
-#include <LiquidCrystal.h>
-#include <SoftwareSerial.h>
 #include <TinyGPS.h>
 
+#define RXPIN 3
+#define TXPIN 4
+#define GPSBAUD 9600
+
 SoftwareSerial BTSerial(4,5); // bluetooth
+SoftwareSerial uart_gps(RXPIN, TXPIN);
+
 
 // gps
-float lat = 28.5458,lon = 77.1703; // create variable for latitude and longitude object 
-SoftwareSerial gpsSerial(3,4);//rx,tx
-LiquidCrystal lcd(A0,A1,A2,A3,A4,A5);
 TinyGPS gps;
 
 // red led for each breadboard
@@ -44,6 +45,47 @@ long yellow1_last_blink;
 long yellow2_last_blink;
 long yellow3_last_blink;
 long yellow4_last_blink;
+
+// function for gps
+
+
+void getgps (TinyGPS & gps)
+{
+  // 모든 데이터를 코드에서 사용할 수있는 varialbes로 가져 오려면, 변수를 정의하고 객체를 핸들링 하면된다.
+  // 데이터. 함수의 전체 목록을 보려면에서 keywords.txt 파일을 참조
+  // TinyGPS와 NewSoftSerial 라이브러리.
+  // 경, 위도 변수를 정의
+    float latitude, longitude;
+  // 함수 호출
+  gps.f_get_position (&latitude, &longitude);
+  //경위도 출력 가능
+  Serial.print("Lat/Long: ");
+  Serial.print(latitude,5);
+  Serial.print(", ");
+  Serial.println(longitude,5);
+  
+  // 날짜와 시간은 같음
+  int year;
+  byte month, day, hour, minute, second, hundredths;
+  gps.crack_datetime(&year,&month,&day,&hour,&minute,&second,&hundredths);
+  // 데이터 및 시간 출력
+  Serial.print("Date: "); Serial.print(month, DEC); Serial.print("/");
+  Serial.print(day, DEC); Serial.print("/"); Serial.print(year);
+  Serial.print("  Time: "); Serial.print(hour, DEC); Serial.print(":");
+  Serial.print(minute, DEC); Serial.print(":"); Serial.print(second, DEC);
+  Serial.print("."); Serial.println(hundredths, DEC);
+
+//고도와 코스 값을 직접 출력
+  Serial.print("Altitude (meters): "); Serial.println(gps.f_altitude());  Serial.print("Course (degrees): "); Serial.println(gps.f_course());
+  Serial.print("Speed(kmph): "); Serial.println(gps.f_speed_kmph());
+  Serial.println ();
+  
+  //통계 값 출력
+ unsigned long chars;
+  unsigned short sentences, failed_checksum;
+  gps.stats(&chars, &sentences, &failed_checksum);
+ delay (10000);
+}
 
 // function for turning on the red light
 void turnOnRed(int led) {
@@ -176,13 +218,15 @@ void setup() {
   pinMode(yellow3, OUTPUT);
   pinMode(yellow4, OUTPUT);
 
-  String setName = String("AT+NAME=YoolaBTBee\r\n");
+  //bluetooth
+  String setName = String("AT+NAME=MyBTBee\r\n");
+  
   Serial.begin(9600);
-  gpsSerial.begin(9600);
-  lcd.begin(16,2);
+
+  //gps
+  uart_gps.begin(GPSBAUD);
   
   BTSerial.print("AT\r\n");
-  delay(500);
 
   while(BTSerial.available()) {
     Serial.write(BTSerial.read());
@@ -191,40 +235,15 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly
-
-  while(gpsSerial.available()){ // check for gps data
-    if(gps.encode(gpsSerial.read()))// encode gps data
-    { 
-    gps.f_get_position(&lat,&lon); // get latitude and longitude
-    // display position
-    lcd.clear();
-    lcd.setCursor(1,0);
-    lcd.print("GPS Signal");
-    //Serial.print("Position: ");
-    //Serial.print("Latitude:");
-    //Serial.print(lat,6);
-    //Serial.print(";");
-    //Serial.print("Longitude:");
-    //Serial.println(lon,6); 
-    lcd.setCursor(1,0);
-    lcd.print("LAT:");
-    lcd.setCursor(5,0);
-    lcd.print(lat);
-    //Serial.print(lat);
-    //Serial.print(" ");
-    
-    lcd.setCursor(0,1);
-    lcd.print(",LON:");
-    lcd.setCursor(5,1);
-    lcd.print(lon);
-    
-   }
-  }
   
-  String latitude = String(lat,6);
-    String longitude = String(lon,6);
-  Serial.println(latitude+";"+longitude);
-  delay(1000);
+  while (uart_gps.available ()) // RX 핀에 데이터가있는 동안 ...
+  {
+      int c = uart_gps.read (); // 데이터를 변수에로드 ...
+      if (gps.encode (c)) // 새로운 유효한 문장이있는 경우 ...
+      {
+        getgps (gps); // 데이터를 가져온다.
+      }
+  }
   
   openPath(0,3);  
 }
