@@ -5,7 +5,7 @@
 #define TXPIN 4
 #define GPSBAUD 9600
 
-SoftwareSerial BTSerial(4,5); // bluetooth
+SoftwareSerial BTSerial(1,2); // bluetooth
 SoftwareSerial uart_gps(RXPIN, TXPIN);
 
 
