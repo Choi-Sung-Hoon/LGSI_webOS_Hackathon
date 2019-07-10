@@ -49,13 +49,13 @@ long yellow4_last_blink;
 // function for gps
 
 
-void getgps (TinyGPS & gps)
+void getgps (TinyGPS gps)
 {
   // 모든 데이터를 코드에서 사용할 수있는 varialbes로 가져 오려면, 변수를 정의하고 객체를 핸들링 하면된다.
   // 데이터. 함수의 전체 목록을 보려면에서 keywords.txt 파일을 참조
   // TinyGPS와 NewSoftSerial 라이브러리.
   // 경, 위도 변수를 정의
-    float latitude, longitude;
+  float latitude, longitude;
   // 함수 호출
   gps.f_get_position (&latitude, &longitude);
   //경위도 출력 가능
