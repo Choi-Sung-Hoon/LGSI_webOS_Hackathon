@@ -21,8 +21,12 @@
 
     <!-- Goggle map API -->
     <script>
-    var map, infoWindow;
-    var marker;
+    var map, infoWindow, i;
+    var marker, marker2;
+    var locations = [
+        ['Forum Mall', 12.934674, 77.611170],
+        ['Taco Bell', 12.937879, 77.626957]
+    ];
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -42,7 +46,7 @@
                 // marker setting
                 var mapOptions = {
                     center : pos,
-                    zoom : 18,
+                    zoom : 14,
                     mapTypeId : google.maps.MapTypeId.ROADMAP
                 };
 
@@ -54,6 +58,21 @@
                     map : map
                 });
                 //google.maps.event.addListener(marker, 'click', toggleBounce(marker));
+
+                // add more marker
+                for (i = 0; i < locations.length; i++) {
+                    var posMarker = {
+                        lat: locations[i][1],
+                        lng: locations[i][2]
+                    }
+
+                    marker2 = new google.maps.Marker({
+                        position: posMarker,
+                        map: map
+                    });
+
+
+                }
 
                 infoWindow.setPosition(pos);
                 infoWindow.setContent('Location found.');
