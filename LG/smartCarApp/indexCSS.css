@@ -136,6 +136,7 @@ textarea.inputDestination {
     color: #fff;
     line-height: 1.2;
     font-family: 'Quicksand', sans-serif;
+    border: none;
 }
 
 .search-btn:hover {
@@ -154,13 +155,51 @@ textarea.inputDestination {
     left: 0;
 }
 
+#contents {
+    display: flex;
+}
+
+#wrap-list {
+    width: 500px;
+    margin-left: 30px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    list-style: none;
+}
+
+ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+ul li:nth-child(odd) {
+    background: #f9f9f9;
+}
+
 /* Optional: Makes the sample page fill the window. */
 html,
 body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: white;
+    background-color: #ffffff;
 }
 
 #id {
