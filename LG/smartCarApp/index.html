@@ -10,10 +10,12 @@
     <meta charset="utf-8">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5nxLnM3tuIYE5s27r-kz3cK164HMjjI&libraries=places"></script>
+    <script src="googleMapService.js"></script>
     <!-- webOS luna service moduling -->
     <script src="webOSjs-0.1.0/webOS.js" charset="utf-8"></script>
     <script type="text/javascript" src="lunaService.js"></script>
 </head>
+
 <script>
 // list JS
 var myNodelist = document.getElementsByTagName("li");
@@ -35,97 +37,8 @@ function newElement() {
     document.getElementById("myInput").value = ""; // empty searchBar
 }
 </script>
-<script type="text/javascript">
 
-window.onload = function() {
-    initialize();
-};
-
-var marker;
-var map;
-var geocoder;
-var infowindow = null;
-
-//form mall 위치
-var latitude = 12.934674;
-var longitude = 77.611170;
-
- 
-function initialize() {
-    geocoder = new google.maps.Geocoder();
-    var lat = latitude;
-    var lng = longitude;
-    var marker = marker;
-    setCurrentPosition(lat, lng);
-    setMarker(lat, lng);
-}
-
-function moveMarker(lat, lng) { 
-    //파싱한 데이터, lat과 lng이 string일 경우를 고려
-    //data string으로 받아 온 거 -> float 로 change
-    latv = parseFloat(lat);
-    lonv = parseFloat(lng);
-    marker.setPosition(new google.maps.LatLng(latv, lonv));
-}
-
-function printMarker(lat, lng) { 
-    //파싱한 데이터, lat과 lng이 string일 경우를 고려
-    //data string으로 받아 온 거 -> float 로 change
-    latv = parseFloat(lat);
-    lonv = parseFloat(lng);
-    //setCurrentPosition(latv, lonv);
-    setMarker(latv, lonv);
-}
-
-function setCurrentPosition(lat, lng) {
-    // 현재 GPS 변수에 넣기.
-    var latitude = lat;
-    var longitude = lng;
-
-    var mapOptions = {
-        zoom: 12,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: new google.maps.LatLng(latitude, longitude)
-    };
-
-    map = new google.maps.Map(document.getElementById('map'), mapOptions);
-}
-
-function setMarker(lat, lng) {
-    // 현재 위치 마커 생성
-    marker = new google.maps.Marker({
-        position: new google.maps.LatLng(lat, lng),
-        map: map,
-        //draggable: false,
-        //icon: "http://maps.google.com/mapfiles/ms/micons/man.png";
-    });
-    marker.addListener('click', toggleBounce); //click evnet가 아니라 웹소켓에서 뭐가 날라오는 이벤트가 발생하면 저렇게 깜박이는 게 낫겠다.
-}
-
-function drawCircle(lat, lng) {
-    // 현재 위치 기준 원 그리기 -- 엠뷸런스에 쓰면 좋겠다
-    var populationOptions = {
-        strokeColor: '#000000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#808080',
-        fillOpacity: 0.5,
-        map: map,
-        center: new google.maps.LatLng(lat, lng),
-        radius: 10000
-    };
-    cityCircle = new google.maps.Circle(populationOptions);
-}
-
-
-function toggleBounce() {
-    if (marker.getAnimation() !== null) {
-        marker.setAnimation(null);
-    } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-    }
-}
-</script>
+<script src="websocket.js" charset="utf-8"></script>
 </head>
 
 <body>
