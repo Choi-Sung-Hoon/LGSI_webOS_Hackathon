@@ -1,0 +1,275 @@
+#map {
+    height: 600px;
+    /* The height is 400 pixels */
+    width: 100%;
+    /* The width is the width of the web page */
+}
+
+#outline{
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 30px;
+}
+
+#title{
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#searchBar {
+    width: 75%;
+}
+
+.wrap-inputDestination {
+    width: 100%;
+    position: relative;
+}
+
+.inputDestination {
+    display: block;
+    width: 100%;
+    background: transparent;
+    font-size: 18px;
+    color: #333333;
+    line-height: 1.2;
+    padding: 0 5px;
+    border: 0px;
+    outline: none;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.focus-inputDestination {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.focus-inputDestination::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+
+    background: #7f7f7f;
+}
+
+input.inputDestination {
+    height: 40px;
+}
+
+
+textarea.inputDestination {
+    min-height: 110px;
+    padding-top: 9px;
+    padding-bottom: 13px;
+}
+
+
+.inputDestination:focus + .focus-inputDestination::before {
+    width: 100%;
+}
+
+.has-val.inputDestination + .focus-inputDestination::before {
+    width: 100%;
+}
+
+.container-search-btn {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.wrap-search-btn {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    border-radius: 100px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.search-bg-btn {
+    position: absolute;
+    z-index: -1;
+    width: 300%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.search-btn {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 50px;
+    background: #a64bf4;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+    font-family: 'Quicksand', sans-serif;
+    border: none;
+}
+
+.search-btn:hover {
+    -webkit-animation: hover 1200ms linear 2 alternate;
+    animation: hover 1200ms linear 2 alternate;
+}
+
+/* Active state animation applied here */
+.search-btn:active {
+    -webkit-animation: active 1200ms ease 1 alternate;
+    animation: active 1200ms ease 1 alternate;
+    background: darkorchid;
+}
+
+.wrap-search-btn:hover .contact100-form-bgbtn {
+    left: 0;
+}
+
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 90px;
+    height: 50px;
+    vertical-align:middle;
+    margin-left: 20px;
+}
+
+/* Hide default HTML checkbox */
+
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 37px;
+    width: 37px;
+    left: 6px;
+    bottom: 6px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #FF0000;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #FF0000;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(40px);
+    -ms-transform: translateX(40px);
+    transform: translateX(40px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+#contents {
+    display: flex;
+}
+
+#wrap-list {
+    width: 500px;
+    margin-left: 30px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    list-style: none;
+}
+
+ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+ul li:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+
+/* Optional: Makes the sample page fill the window. */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+#id {
+    color: white;
+}
