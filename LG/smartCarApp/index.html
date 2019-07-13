@@ -2,227 +2,161 @@
 <html>
 
 <head>
-    <title>Geolocation</title>
+    <title>Let's cue, nevi</title>
     <link rel="stylesheet" href="./indexCSS.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-
-    <!-- Goggle map API -->
-    <script>
-
-        // list JS
-        var myNodelist = document.getElementsByTagName("li");
-        var i;
-
-        // Add input text in searchBar to list
-        function newElement() {
-            var li = document.createElement("li");
-            var inputValue = document.getElementById("myInput").value;
-            var t = document.createTextNode(inputValue);
-            li.appendChild(t);
-            // if user put nothing then alert
-            if (inputValue === '') {
-                alert("Nothing to Search!");
-            } else { // add text to list on html
-                document.getElementById("myUL").appendChild(li);
-                $("#myUL").append("<hr>");
-            }
-            document.getElementById("myInput").value = ""; // empty searchBar
-        }
-
-        // Google API
-        var map, infoWindow;
-        var marker, marker2;
-        var locations = [
-            ['Forum Mall', 12.934674, 77.611170],
-            ['Taco Bell', 12.937879, 77.626957]
-        ];
-
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -34.397, lng: 150.644 },
-                zoom: 6
-            });
-            infoWindow = new google.maps.InfoWindow;
-
-            // Try HTML5 geolocation.
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-
-                    // marker setting
-                    var mapOptions = {
-                        center : pos,
-                        zoom : 14,
-                        mapTypeId : google.maps.MapTypeId.ROADMAP
-                    };
-
-                    map = new google.maps.Map(document.getElementById("map"),
-                        mapOptions);
-
-                    marker = new google.maps.Marker({
-                        position : pos, // location of marker
-                        map : map,
-                        icon: {
-                            // change marker's color red(default) to blue
-                            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-                        }
-                    });
-                    //google.maps.event.addListener(marker, 'click', toggleBounce(marker));
-
-                    // add more marker
-                    for (i = 0; i < locations.length; i++) {
-                        var posMarker = {
-                            lat: locations[i][1],
-                            lng: locations[i][2]
-                        }
-
-                        marker2 = new google.maps.Marker({
-                            position: posMarker,
-                            map: map
-                        });
-
-
-                    }
-
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent('Location found.');
-                    infoWindow.open(map);
-                    map.setCenter(pos);
-
-                }, function() {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                });
-            } else {
-                // Browser doesn't support Geolocation
-                handleLocationError(false, infoWindow, map.getCenter());
-            }
-        }
-
-        /*
-        function calcRoute() {
-            var start = document.getElementById('start').value;
-            var end = document.getElementById('end').value;
-            var mode = document.getElementById('mode').value;
-
-            var request = {
-                origin:start,
-                destination:end,
-                travelMode: eval("google.maps.DirectionsTravelMode."+mode)
-            };
-
-            console.log(start.coords.latitude);
-            console.log(start.coords.longitude);
-            console.log(end.coords.latitude);
-            console.log(end, coords.longitude);
-
-            directionsService.route(request, function(response, status) {
-                alert(status);  // 확인용 Alert..미사용시 삭제
-                if (status == google.maps.DirectionsStatus.OK) {
-                    directionsDisplay.setDirections(response);
-                }
-            });
-        }
-
-        */
-
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(browserHasGeolocation ?
-                'Error: The Geolocation service failed.' :
-                'Error: Your browser doesn\'t support geolocation.');
-            infoWindow.open(map);
-        }
-    </script>
-
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5nxLnM3tuIYE5s27r-kz3cK164HMjjI&libraries=places"></script>
     <!-- webOS luna service moduling -->
     <script src="webOSjs-0.1.0/webOS.js" charset="utf-8"></script>
-    <script type="text/javascript" src="lunaService.js">
+    <script type="text/javascript" src="lunaService.js"></script>
+</head>
+<script>
+// list JS
+var myNodelist = document.getElementsByTagName("li");
+var i;
 
-        //decode encoded data
-        function b64DecodeUnicode(str) {
-            // Going backwards: from bytestream, to percent-encoding, to original string.
-            return decodeURIComponent(atob(str).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
+// Add input text in searchBar to list
+function newElement() {
+    var li = document.createElement("li");
+    var inputValue = document.getElementById("myInput").value;
+    var t = document.createTextNode(inputValue);
+    li.appendChild(t);
+    // if user put nothing then alert
+    if (inputValue === '') {
+        alert("Nothing to Search!");
+    } else { // add text to list on html
+        document.getElementById("myUL").appendChild(li);
+        $("#myUL").append("<hr>");
+    }
+    document.getElementById("myInput").value = ""; // empty searchBar
+}
+</script>
+<script type="text/javascript">
+<!--
+//var markers = [];
+var marker;
+var map;
+var geocoder;
+var infowindow = null;
+
+//form mall 위치 
+var latitude = 12.934674;
+var longitude = 77.611170;
+
+function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var lat = latitude;
+    var lng = longitude;
+    var marker = marker;
+    setCurrentPosition(lat, lng);
+    setMarker(lat, lng);
+    //drawCircle(lat, lng);
+    //viewMarker();
+
+    changeMarker(lat+3*10.0, lng+3*10.0, marker);
+    
+}
+
+
+function setCurrentPosition(lat, lng) {
+    // 현재 GPS 변수에 넣기.
+    var latitude = lat;
+    var longitude = lng;
+
+    var mapOptions = {
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: new google.maps.LatLng(latitude, longitude)
+    };
+
+    map = new google.maps.Map(document.getElementById('map'), mapOptions); 
+    //지도 그릴 지도 바탕지 만든 것
+}
+
+function setMarker(lat, lng) {
+    // 현재 위치 마커 생성
+    marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat, lng),
+        map: map,
+        //draggable: false,
+        //icon: "http://maps.google.com/mapfiles/ms/micons/man.png"
+    });
+     marker.addListener('click', toggleBounce); //click evnet가 아니라 웹소켓에서 뭐가 날라오는 이벤트가 발생하면 저렇게 깜박이는 게 낫겠다. 
+}
+
+
+function drawCircle(lat, lng) {
+    // 현재 위치 기준 원 그리기 -- 엠뷸런스에 쓰면 좋겠다
+    var populationOptions = {
+        strokeColor: '#000000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#808080',
+        fillOpacity: 0.5,
+        map: map,
+        center: new google.maps.LatLng(lat, lng),
+        radius: 10000
+    };
+    cityCircle = new google.maps.Circle(populationOptions);
+}
+/*
+function changeMarker(lat, lng, marker) {
+    marker.setPosition( new google.maps.LatLng( lat, lng ) );
+    map.panTo( new google.maps.LatLng( lat, lng ) );
+
+    var infowindow = new google.maps.InfoWindow();
+
+    infowindow.setContent(this.html);
+    infowindow.open(map, this);
+}
+*/
+
+function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
         }
+      }             
 
-        // on/off button JS
-        var check = $("input[type='checkbox']");
-        check.click(function(){
-            $("p").toggle();
-        });
 
-    </script>
+</script>
+
 </head>
 
-<body>
-
-<div id="outline">
-    <div id="title">
-        <h2>Let's cue, navi</h2>
+<body onload="initialize()">
+    <div id="outline">
+        <div id="title">
+            <h2>Let's cue, navi</h2>
             <div class="wrap-inputDestination validate-input" data-validate="Destination is required">
                 <input id="myInput" class="inputDestination" type="text" name="name" placeholder="Enter your Destination">
                 <span class="focus-inputDestination"></span>
             </div>
-        <div class="container-search-btn">
-            <div class="wrap-search-btn">
-                <div class="search-bg-btn"></div>
-                <button class="search-btn" onclick="newElement()">
-							<span>
-								Search
-								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-							</span>
-                </button>
+            <div class="container-search-btn">
+                <div class="wrap-search-btn">
+                    <div class="search-bg-btn"></div>
+                    <button class="search-btn" onclick="newElement()">
+                        <span>
+                            Search
+                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Google Maps API, Do not remove-->
-    <div id="contents">
-        <div id="map"></div>
-        <div id="wrap-list">
-            <div id="myUL"></div>
+        
+        <div id="contents">
+            <div id="map"></div>
+            <div id="wrap-list">
+                <div id="myUL"></div>
+            </div>
         </div>
+        <button onclick="changeMarker()">changeMarker</button>
     </div>
-</div>
-
-
-<!-- 루나 서비스 테스트를 위해 임시로 쓰고 있는 영역 나중에는 다 지워 질 것임-->
-
-<!--
-<br>
-<h1>Let's cue, navi</h1>
-<button id="toast">when server send alarm</button>
-<script>
-    var message = "caution! Ambulance is coming!"
-    document.getElementById("toast").addEventListener("click", function() {
-createToast(message);
-}, false);
-</script>
-<button onclick="adapter_startDiscovery()">start bluetooth</button>
-<button onclick="adapter_cancelDiscovery()">cancle Discovery</button>
-
-<button onclick="adapter_pair()">pairring</button>
-<button onclick="adapter_supplyPinCode() ">pinCode</button>
--->
-
-<!--<button onclick="spp_createChannel()">ssp create channel</button>-->
-<!--
-<button onclick="spp_connect()">connect device to ssp channel</button>
-<button onclick="spp_readData()">readData</button>
-<div id="data"></div>
-<br>
--->
-
-<!--google open API key :: don't remove -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5nxLnM3tuIYE5s27r-kz3cK164HMjjI&callback=initMap">
-</script>
 </body>
 
 </html>
