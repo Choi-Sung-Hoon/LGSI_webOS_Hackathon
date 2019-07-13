@@ -36,17 +36,21 @@ function newElement() {
 }
 </script>
 <script type="text/javascript">
-<!--
-//var markers = [];
+
+window.onload = function() {
+    initialize();
+};
+
 var marker;
 var map;
 var geocoder;
 var infowindow = null;
 
-//form mall 위치 
+//form mall 위치
 var latitude = 12.934674;
 var longitude = 77.611170;
 
+ 
 function initialize() {
     geocoder = new google.maps.Geocoder();
     var lat = latitude;
@@ -54,13 +58,24 @@ function initialize() {
     var marker = marker;
     setCurrentPosition(lat, lng);
     setMarker(lat, lng);
-    //drawCircle(lat, lng);
-    //viewMarker();
-
-    changeMarker(lat+3*10.0, lng+3*10.0, marker);
-    
 }
 
+function moveMarker(lat, lng) { 
+    //파싱한 데이터, lat과 lng이 string일 경우를 고려
+    //data string으로 받아 온 거 -> float 로 change
+    latv = parseFloat(lat);
+    lonv = parseFloat(lng);
+    marker.setPosition(new google.maps.LatLng(latv, lonv));
+}
+
+function printMarker(lat, lng) { 
+    //파싱한 데이터, lat과 lng이 string일 경우를 고려
+    //data string으로 받아 온 거 -> float 로 change
+    latv = parseFloat(lat);
+    lonv = parseFloat(lng);
+    //setCurrentPosition(latv, lonv);
+    setMarker(latv, lonv);
+}
 
 function setCurrentPosition(lat, lng) {
     // 현재 GPS 변수에 넣기.
@@ -68,13 +83,12 @@ function setCurrentPosition(lat, lng) {
     var longitude = lng;
 
     var mapOptions = {
-        zoom: 16,
+        zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: new google.maps.LatLng(latitude, longitude)
     };
 
-    map = new google.maps.Map(document.getElementById('map'), mapOptions); 
-    //지도 그릴 지도 바탕지 만든 것
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
 }
 
 function setMarker(lat, lng) {
@@ -83,11 +97,10 @@ function setMarker(lat, lng) {
         position: new google.maps.LatLng(lat, lng),
         map: map,
         //draggable: false,
-        //icon: "http://maps.google.com/mapfiles/ms/micons/man.png"
+        //icon: "http://maps.google.com/mapfiles/ms/micons/man.png";
     });
-     marker.addListener('click', toggleBounce); //click evnet가 아니라 웹소켓에서 뭐가 날라오는 이벤트가 발생하면 저렇게 깜박이는 게 낫겠다. 
+    marker.addListener('click', toggleBounce); //click evnet가 아니라 웹소켓에서 뭐가 날라오는 이벤트가 발생하면 저렇게 깜박이는 게 낫겠다.
 }
-
 
 function drawCircle(lat, lng) {
     // 현재 위치 기준 원 그리기 -- 엠뷸런스에 쓰면 좋겠다
@@ -103,32 +116,19 @@ function drawCircle(lat, lng) {
     };
     cityCircle = new google.maps.Circle(populationOptions);
 }
-/*
-function changeMarker(lat, lng, marker) {
-    marker.setPosition( new google.maps.LatLng( lat, lng ) );
-    map.panTo( new google.maps.LatLng( lat, lng ) );
 
-    var infowindow = new google.maps.InfoWindow();
-
-    infowindow.setContent(this.html);
-    infowindow.open(map, this);
-}
-*/
 
 function toggleBounce() {
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
-        } else {
-          marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
-      }             
-
-
+    if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+    } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+}
 </script>
-
 </head>
 
-<body onload="initialize()">
+<body>
     <div id="outline">
         <div id="title">
             <h2>Let's cue, navi</h2>
@@ -148,14 +148,13 @@ function toggleBounce() {
                 </div>
             </div>
         </div>
-        
         <div id="contents">
             <div id="map"></div>
             <div id="wrap-list">
                 <div id="myUL"></div>
             </div>
         </div>
-        <button onclick="changeMarker()">changeMarker</button>
+        <button onclick="printMarker(12.937979,77.623957)">changeMarker</button>
     </div>
 </body>
 
