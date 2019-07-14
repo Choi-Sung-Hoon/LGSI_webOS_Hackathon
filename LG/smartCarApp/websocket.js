@@ -113,41 +113,12 @@ function onMessage(event)
 					for (var i = 0; i < ambulanceMarkers.length; i++)
 						deleteMarker(ambulanceMarkers[i]);
 			}
-				// new ambulance is added
-				// else if(ambulanceMarkers.length < ambulanceList.length)
-				// {
-				// 	for (var i = 0; i < ambulanceList.length; i++)
-				// 	{
-				// 		if(i < ambulanceMarkers.length)
-				// 			moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-				// 		else
-				// 			ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-				// 	}
-				// }
-				// else if(ambulanceMarkers.length == ambulanceList.length)
-				// {
-				// 	for (var i = 0; i < ambulanceList.length; i++)
-				// 		moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-				// }
-				// // an ambulance is deleted
-				// else
-				// {
-				// 	for (var i = 0; i < ambulanceMarkers.length; i++)
-				// 	{
-				// 		if(!(ambulanceMarkers[i] in ambulanceList))
-				// 		{
-				// 			//deleteMarker(ambulanceMarkers[i]);
-				// 			ambulanceMarkers[i].setMap(null);
-				// 			ambulanceMarkers.splice(i, 1);
-				// 		}
-				// 	}
-				// }
 			break;
 		}
 		case "sendNotification":
 		{
 			distance = message.payload.distance;
-			createToast("An ambulance is " + distance + "m away! Please make a way!");
+			createToast("An ambulance is " + distance + "m away!\nPlease make a way!");
 		}
 	}
 }
