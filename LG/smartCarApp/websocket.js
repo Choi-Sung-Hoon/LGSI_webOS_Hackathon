@@ -103,10 +103,21 @@ function onMessage(event)
 							ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
 					}
 				}
-				else
+				else if(ambulanceMarkers.length == ambulanceList.length)
 				{
 					for (var i = 0; i < ambulanceList.length; i++)
 						moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+				}
+				else
+				{
+					for (var i = 0; i < ambulanceMarkers.length; i++)
+					{
+						if(!(ambulanceMarkers[i] in ambulanceList))
+						{
+							deleteMarker(ambulanceMarkers[i]);
+							ambulanceMarkers.splice(i, 1);
+						}
+					}
 				}
 			}
 			break;

@@ -37,6 +37,11 @@ function moveMarker(marker, lat, lng)
     marker.setPosition(new google.maps.LatLng(lat, lng));
 }
 
+function deleteMarker(marker)
+{
+    marker.setMap(null);
+}
+
 /*
 function drawCircle(lat, lng) {
     // 현재 위치 기준 원 그리기 -- 엠뷸런스에 쓰면 좋겠다
