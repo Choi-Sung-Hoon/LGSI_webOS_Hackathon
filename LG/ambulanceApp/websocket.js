@@ -2,7 +2,7 @@ var serverIp = "192.168.43.138";
 var serverPort = "9999";
 var wsUri = "ws://" + serverIp + ":" + serverPort;
 
-var deviceId = 1;			// this should be same with raspbian device,
+var deviceId = 2;			// this should be same with raspbian device,
 var deviceType = "webos"	// but different from webos device
 var deviceIp, deviceType, latitude, longitude;
 
@@ -103,10 +103,21 @@ function onMessage(event)
 							ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
 					}
 				}
-				else
+				else if(ambulanceMarkers.length == ambulanceList.length)
 				{
 					for (var i = 0; i < ambulanceList.length; i++)
 						moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+				}
+				else
+				{
+					for (var i = 0; i < ambulanceMarkers.length; i++)
+					{
+						if(!(ambulanceMarkers[i] in ambulanceList))
+						{
+							deleteMarker(ambulanceMarkers[i]);
+							ambulanceMarkers.splice(i, 1);
+						}
+					}
 				}
 			}
 			break;
