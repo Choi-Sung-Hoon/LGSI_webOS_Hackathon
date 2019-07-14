@@ -106,15 +106,26 @@ function sendResponses()
 			"deviceId": deviceId,
 			"latitude": latitudes[x],
 			"longitude": longitudes[x],
-			"count": (x++ % latitudes.length)
+			"count": x
 		}
 	}
+	x = x % latitudes.length;
 	webSocket.send(JSON.stringify(message));
 	output.innerHTML = "Sent message to server: <br>" + JSON.stringify(message, null, '\t').replace(/\n/g, '<br>') + "<br>";
 }
 
-var latitudes = [12.942068, 12.941716, 12.941654, 12.941391, 12.940960]
-var longitudes = [77.597428, 77.597446, 77.597473, 77.597500, 77.597556]
+var latitudes = [12.942068, 12.941716, 12.941654, 12.941391, 12.940960,
+				12.940079, 12.939881, 12.939588, 12.939295, 12.938971,
+				12.938794, 12.938616, 12.938417, 12.938166, 12.937936,
+				12.937717, 12.937633, 12.937518, 12.937434, 12.937392,
+				12.937350, 12.937225, 12.937040, 12.936990, 12.936928,
+				12.936866, 12.936766];
+var longitudes = [77.597428, 77.597446, 77.597473, 77.597500, 77.597556,
+				77.597593, 77.597636, 77.597829, 77.597936, 77.598097,
+				77.598237, 77.598344, 77.598516, 77.598698, 77.598966,
+				77.599267, 77.599514, 77.599750, 77.600039, 77.600060,
+				77.600543, 77.600919, 77.601833, 77.602534, 77.603096,
+				77.603504, 77.603861];
 
 // attach callback function to the event.
 // This should be done before load
