@@ -93,7 +93,7 @@ function onMessage(event)
 					for (var i = 0; i < ambulanceList.length; i++)
 					{
 						ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-						ambulanceMarkers[i].setIcon('icon.png')
+						ambulanceMarkers[i].setIcon('ambulance.png')
 					}
 				}
 				else
@@ -103,7 +103,7 @@ function onMessage(event)
 					for (var i = 0; i < ambulanceList.length; i++)
 					{
 						ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-						ambulanceMarkers[i].setIcon('icon.png')
+						ambulanceMarkers[i].setIcon('ambulance.png')
 					}
 				}
 			}

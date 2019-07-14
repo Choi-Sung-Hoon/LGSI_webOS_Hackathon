@@ -5,7 +5,6 @@ function createToast(message)
 		parameters: {
 			"sourceId": "com.domain.app",
 			"message": message,
-			"iconUrl": "ambulance.png",
 			"noaction": true
 		},
 		onSuccess: function(args) {},
