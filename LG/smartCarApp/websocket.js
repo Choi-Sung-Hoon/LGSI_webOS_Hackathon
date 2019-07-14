@@ -46,8 +46,8 @@ function onError(event)
 function onMessage(event)
 {
 	var message = JSON.parse(event.data);
-	var output = document.getElementById("output");
-	output.innerHTML = "Message from server: <br>" + JSON.stringify(message, null, '\t').replace(/\n/g, '<br>') + "<br>";
+	// var output = document.getElementById("output");
+	// output.innerHTML = "Message from server: <br>" + JSON.stringify(message, null, '\t').replace(/\n/g, '<br>') + "<br>";
 
 	switch(message.method)
 	{
@@ -123,13 +123,6 @@ function onMessage(event)
 								moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
 						}
 					}
-					// for (var i = 0; i < ambulanceMarkers.length; i++)
-					// 	deleteMarker(ambulanceMarkers[i]);
-					// for (var i = 0; i < ambulanceList.length; i++)
-					// {
-					// 	ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-					// 	ambulanceMarkers[i].setIcon('ambulance.png')
-					// }
 				}
 			}
 			else

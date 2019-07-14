@@ -46,8 +46,8 @@ function onError(event)
 function onMessage(event)
 {
 	var message = JSON.parse(event.data);
-	var output = document.getElementById("output");
-	output.innerHTML = "Message from server: <br>" + JSON.stringify(message, null, '\t').replace(/\n/g, '<br>') + "<br>";
+	// var output = document.getElementById("output");
+	// output.innerHTML = "Message from server: <br>" + JSON.stringify(message, null, '\t').replace(/\n/g, '<br>') + "<br>";
 
 	switch(message.method)
 	{
