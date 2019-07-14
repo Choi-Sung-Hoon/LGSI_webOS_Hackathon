@@ -28,7 +28,7 @@ function createMarker(lat, lng)
         //draggable: false,
         //icon: "http://maps.google.com/mapfiles/ms/micons/man.png";
     });
-    //marker.addListener('click', toggleBounce); //click evnet가 아니라 웹소켓에서 뭐가 날라오는 이벤트가 발생하면 저렇게 깜박이는 게 낫겠다.
+    // marker.addListener('click', toggleBounce); //click evnet가 아니라 웹소켓에서 뭐가 날라오는 이벤트가 발생하면 저렇게 깜박이는 게 낫겠다.
     return marker;
 }
 
@@ -37,22 +37,10 @@ function moveMarker(marker, lat, lng)
     marker.setPosition(new google.maps.LatLng(lat, lng));
 }
 
-/*
-function drawCircle(lat, lng) {
-    // 현재 위치 기준 원 그리기 -- 엠뷸런스에 쓰면 좋겠다
-    var populationOptions = {
-        strokeColor: '#000000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#808080',
-        fillOpacity: 0.5,
-        map: map,
-        center: new google.maps.LatLng(lat, lng),
-        radius: 10000
-    };
-    cityCircle = new google.maps.Circle(populationOptions);
+function deleteMarker(marker)
+{
+    marker.setMap(null);
 }
-*/
 
 function toggleBounce()
 {

@@ -91,41 +91,34 @@ function onMessage(event)
 				if (ambulanceMarkers.length == 0) //만들어진 마커가 없다는 거니까
 				{
 					for (var i = 0; i < ambulanceList.length; i++)
-						ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-				}
-				else if(ambulanceMarkers.length < ambulanceList.length)
-				{
-					for (var i = 0; i < ambulanceList.length; i++)
 					{
-						if(i < ambulanceMarkers.length)
-							moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-						else
-							ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+						ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+						ambulanceMarkers[i].setIcon('icon.png')
 					}
-				}
-				else if(ambulanceMarkers.length == ambulanceList.length)
-				{
-					for (var i = 0; i < ambulanceList.length; i++)
-						moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
 				}
 				else
 				{
 					for (var i = 0; i < ambulanceMarkers.length; i++)
+						deleteMarker(ambulanceMarkers[i]);
+					for (var i = 0; i < ambulanceList.length; i++)
 					{
-						if(!(ambulanceMarkers[i] in ambulanceList))
-						{
-							deleteMarker(ambulanceMarkers[i]);
-							ambulanceMarkers.splice(i, 1);
-						}
+						ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+						ambulanceMarkers[i].setIcon('icon.png')
 					}
 				}
+			}
+			else
+			{
+				if (ambulanceMarkers.length != 0)
+					for (var i = 0; i < ambulanceMarkers.length; i++)
+						deleteMarker(ambulanceMarkers[i]);
 			}
 			break;
 		}
 		case "sendNotification":
 		{
 			distance = message.payload.distance;
-			createToast("An ambulance is " + distance + "m away! Please make a way!");
+			createToast("An ambulance is " + distance + "m away!\nPlease make a way!");
 		}
 	}
 }
