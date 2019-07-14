@@ -93,18 +93,43 @@ function onMessage(event)
 					for (var i = 0; i < ambulanceList.length; i++)
 					{
 						ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-						ambulanceMarkers[i].setIcon('ambulance.png')
+						ambulanceMarkers[i].setIcon('ambulance.png');
 					}
 				}
 				else
 				{
-					for (var i = 0; i < ambulanceMarkers.length; i++)
-						deleteMarker(ambulanceMarkers[i]);
-					for (var i = 0; i < ambulanceList.length; i++)
+					if(ambulanceMarkers.length < ambulanceList.length)
 					{
-						ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-						ambulanceMarkers[i].setIcon('ambulance.png')
+						for(var i = 0; i < ambulanceList.length; i++)
+						{
+							if(i < ambulanceMarkers.length)
+								moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+							else
+								ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+						}
 					}
+					if(ambulanceMarkers.length == ambulanceList.length)
+					{
+						for(var i = 0; i < ambulanceList.length; i++)
+							moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+					}
+					if(ambulanceMarkers.length > ambulanceList.length)
+					{
+						for(var i = 0; i < ambulanceMarkers.length; i++)
+						{
+							if(!(ambulanceMarkers[i] in ambulanceList))
+								deleteMarke(ambulanceMarkers[i]);
+							else
+								moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+						}
+					}
+					// for (var i = 0; i < ambulanceMarkers.length; i++)
+					// 	deleteMarker(ambulanceMarkers[i]);
+					// for (var i = 0; i < ambulanceList.length; i++)
+					// {
+					// 	ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+					// 	ambulanceMarkers[i].setIcon('ambulance.png')
+					// }
 				}
 			}
 			else
