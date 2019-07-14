@@ -104,12 +104,12 @@ function sendResponses()
 		"payload":
 		{
 			"deviceId": deviceId,
-			"latitude": latitudes[x],
-			"longitude": longitudes[x],
+			"latitude": coordinationList[x][0],
+			"longitude": coordinationList[x][1],
 			"count": x++
 		}
 	}
-	x = x % latitudes.length;
+	x = x % coordinationList.length;
 	webSocket.send(JSON.stringify(message));
 	output.innerHTML = "Sent message to server: <br>" + JSON.stringify(message, null, '\t').replace(/\n/g, '<br>') + "<br>";
 }
