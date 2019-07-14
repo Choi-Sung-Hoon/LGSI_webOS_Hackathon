@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Let's cue, nevi</title>
+    <title>Let's cue, navi</title>
     <link rel="stylesheet" href="./indexCSS.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
@@ -10,35 +10,38 @@
     <meta charset="utf-8">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5nxLnM3tuIYE5s27r-kz3cK164HMjjI&libraries=places"></script>
-    <script src="googleMapService.js"></script>
     <!-- webOS luna service moduling -->
     <script src="webOSjs-0.1.0/webOS.js" charset="utf-8"></script>
-    <script type="text/javascript" src="lunaService.js"></script>
+	<script src="lunaService.js" charset="utf-8"></script>
+	<!-- gps -->
+	<script src="googleMapService.js"></script>
+	<!-- client-server communication -->
+	<script src="websocket.js" charset="utf-8"></script>
 </head>
-
 <script>
 // list JS
 var myNodelist = document.getElementsByTagName("li");
 var i;
 
 // Add input text in searchBar to list
-function newElement() {
+function newElement()
+{
     var li = document.createElement("li");
     var inputValue = document.getElementById("myInput").value;
     var t = document.createTextNode(inputValue);
     li.appendChild(t);
     // if user put nothing then alert
-    if (inputValue === '') {
+    if (inputValue === '')
         alert("Nothing to Search!");
-    } else { // add text to list on html
+    else
+    {
+        // add text to list on html
         document.getElementById("myUL").appendChild(li);
         $("#myUL").append("<hr>");
     }
     document.getElementById("myInput").value = ""; // empty searchBar
 }
 </script>
-
-<script src="websocket.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -67,7 +70,9 @@ function newElement() {
                 <div id="myUL"></div>
             </div>
         </div>
-        <button onclick="printMarker(12.937979,77.623957)">changeMarker</button>
+        <button onclick="ambulanceOn()">ambulanceOn()</button>
+        <button onclick="ambulanceOff()">ambulanceOff()</button><br>
+        <div id="output">This is output!</div>
     </div>
 </body>
 
