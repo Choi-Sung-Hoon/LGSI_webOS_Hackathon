@@ -1,0 +1,85 @@
+1. device(raspbian, webos)가 서버로 접속함.
+
+2. 서버는 device의 ip를 다시 그 device로 전송함.
+	"method": "requestInformation"
+	"payload":
+	{
+		"serverIp":
+		"deviceIp":
+	}
+
+3. device(raspbian, webos)는 서버로 정보를 전송함.
+	"deviceIp":,
+	"method": "updateInformation",
+	"payload":
+	{
+		"deviceId":	raspbian과 webos 기기는 id가 같아야 함.
+		"deviceType": "webos" 또는 "raspbian"
+	}
+
+----------------------- device 정보교환 끝
+
+1. raspbian은 server로 위치를 계속 전송함. (webos의 위치갱신을 위함)
+	"deviceIp":,
+	"method": "updateLocation",
+	"payload":
+	{
+		"deviceId":
+		"latitude":
+		"longitude":
+	}
+
+2. server는 webos로 위치를 전송함.
+	"method": "updateLocation",
+	"payload":
+	{
+		"latitude":
+		"longitude":
+	}
+
+----------------------- device 위치 업데이트 끝
+
+1. webos는 server로 앰뷸런스 기능을 켬.
+
+	"deviceIp":
+	"method": "ambulanceOn",
+	"payload":
+	{
+		"deviceId":
+	}
+
+2. server는 모든 webos device에게 ambulance의 위치를 전송함.
+	(이는 raspbian이 매번 위치를 업데이트 할 때마다 핸들러 실행)
+	(만약 특정 거리 안으로 오면 sendNotification)
+
+	"method": "updaetLocation",
+	"payload":
+	[
+		"latitude": latitude,
+		"longitude": longitude,
+		"ambulanceList": 
+		[
+			{
+				"latitude":
+				"longitude":
+			},
+			{
+				"latitude":
+				"longitude":
+			}
+		]
+		...
+	]
+
+----------------------- ambulance 위치 업데이트 끝
+
+1. webos는 server로 앰뷸런스 기능을 끔.
+
+	"deviceIp":
+	"method": "ambulanceOff"
+	"payload":
+	{
+		"deviceId":
+	}
+
+2. server는 webos device에게 해당 id의 device 위치 전송을 하지 않음.

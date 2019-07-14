@@ -1,0 +1,13 @@
+{
+  "id": "com.domain.app",
+  "version": "0.0.1",
+  "vendor": "My Company",
+  "type": "web",
+  "main": "index.html",
+  "title": "Let's cue, navi",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png",
+  "requiredPermissions": [
+		"devices","all"
+	]
+}
