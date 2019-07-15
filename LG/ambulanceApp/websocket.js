@@ -77,11 +77,11 @@ function onMessage(event)
 			latitude = parseFloat(message.payload.latitude);
 			longitude = parseFloat(message.payload.longitude);
 			
-			setMapPosition(myMap, new google.maps.LatLng(latitude, longitude));
 			if(myMarker == null)
 				myMarker = createMarker(latitude, longitude);
 			else
 				moveMarker(myMarker, latitude, longitude);
+			setMapPosition(myMap, new google.maps.LatLng(latitude, longitude));
 
 			ambulanceList = message.payload.ambulanceList;
 			if (ambulanceList.length != 0) //엠뷸런스 on 상태
