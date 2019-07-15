@@ -77,11 +77,9 @@ function onMessage(event)
 			latitude = parseFloat(message.payload.latitude);
 			longitude = parseFloat(message.payload.longitude);
 			
+			setMapPosition(myMap, new google.maps.LatLng(latitude, longitude));
 			if(myMarker == null)
-			{
-				setMapPosition(latitude, longitude);
 				myMarker = createMarker(latitude, longitude);
-			}
 			else
 				moveMarker(myMarker, latitude, longitude);
 

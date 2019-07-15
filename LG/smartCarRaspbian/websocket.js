@@ -103,9 +103,9 @@ function sendResponses()
 		"payload":
 		{
 			"deviceId": deviceId,
-			// christ university
-			"latitude": "12.933139",
-			"longitude": "77.6059469",
+			// intersection
+			"latitude": "12.936969",
+			"longitude": "77.601741",
 			"count": x++
 		}
 	}

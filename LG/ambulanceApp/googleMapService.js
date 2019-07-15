@@ -1,4 +1,4 @@
-var map;
+var myMap;
 var geocoder;
 
 // create marker
@@ -8,23 +8,29 @@ var ambulanceMarkers = new Array();
 function initialize()
 {
     geocoder = new google.maps.Geocoder();
+    myMap = createMap(latitude, longitude);
 }
 
-function setMapPosition(lat, lng)
+function createMap(lat, lng)
 {
     var mapOptions = {
         center: new google.maps.LatLng(lat, lng),
-        zoom: 15,
+        zoom: 17,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
-    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    return new google.maps.Map(document.getElementById('map'), mapOptions);
+}
+
+function setMapPosition(map, LatLng)
+{
+    map.setCenter(LatLng);
 }
 
 function createMarker(lat, lng)
 {
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
-        map: map,
+        map: myMap,
         //draggable: false,
         //icon: "http://maps.google.com/mapfiles/ms/micons/man.png";
     });

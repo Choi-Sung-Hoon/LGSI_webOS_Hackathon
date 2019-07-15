@@ -79,11 +79,14 @@ function onMessage(event)
 			
 			if(myMarker == null)
 			{
-				setMapPosition(latitude, longitude);
+				myMap = createMap(latitude, longitude);
 				myMarker = createMarker(latitude, longitude);
 			}
 			else
+			{
+				setMapPosition(myMap, latitude, longitude);
 				moveMarker(myMarker, latitude, longitude);
+			}
 
 			ambulanceList = message.payload.ambulanceList;
 			if (ambulanceList.length != 0) //엠뷸런스 on 상태
