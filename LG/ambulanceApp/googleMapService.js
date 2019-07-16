@@ -93,6 +93,7 @@ function createMap(lat, lng)
     var mapOptions = {
         center: new google.maps.LatLng(lat, lng),
         zoom: 17,
+        draggable: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
     return new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -108,7 +109,7 @@ function createMarker(lat, lng)
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         map: myMap,
-        //draggable: false,
+        draggable: false,
         //icon: "http://maps.google.com/mapfiles/ms/micons/man.png";
     });
     // marker.addListener('click', toggleBounce); //click evnet가 아니라 웹소켓에서 뭐가 날라오는 이벤트가 발생하면 저렇게 깜박이는 게 낫겠다.

@@ -18,6 +18,7 @@ function createMap(lat, lng)
     var mapOptions = {
         center: new google.maps.LatLng(lat, lng),
         zoom: 17,
+        draggable: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
 
