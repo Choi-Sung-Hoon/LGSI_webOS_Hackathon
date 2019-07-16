@@ -70,20 +70,32 @@ function handleClick(cb) {
 <body>
     <div id="outline">
         <div id="title">
-            <h2>Let's cue, navi</h2>
+            <h2 style="padding-right: 30px">Let's cue, navi</h2>
+            <!-- Search bar div-->
             <div class="wrap-inputDestination validate-input" data-validate="Destination is required">
-                <input id="myInput" class="inputDestination" type="text" name="name" placeholder="Enter your Destination">
+                <input id="pac-input" class="inputDestination" type="text" name="name" placeholder="Enter a Location">
                 <span class="focus-inputDestination"></span>
             </div>
-            <div class="container-search-btn">
-                <div class="wrap-search-btn">
-                    <div class="search-bg-btn"></div>
-                    <button class="search-btn" onclick="newElement()">
-                        <span>
-                            Search
-                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                        </span>
-                    </button>
+            <div class="pac-card" id="pac-card">
+                <!-- Radio button div-->
+                <div>
+                    <div id="type-selector" class="pac-controls">
+                        <input type="radio" name="type" id="changetype-all" checked="checked">
+                        <label for="changetype-all">All</label>
+
+                        <input type="radio" name="type" id="changetype-establishment">
+                        <label for="changetype-establishment">Establishments</label>
+
+                        <input type="radio" name="type" id="changetype-address">
+                        <label for="changetype-address">Addresses</label>
+
+                        <input type="radio" name="type" id="changetype-geocode">
+                        <label for="changetype-geocode">Geocodes</label>
+                    </div>
+                    <div id="strict-bounds-selector" class="pac-controls">
+                        <input type="checkbox" id="use-strict-bounds" value="">
+                        <label for="use-strict-bounds">Strict Bounds</label>
+                    </div>
                 </div>
             </div>
             <div>
@@ -97,8 +109,11 @@ function handleClick(cb) {
         </div>
         <div id="contents">
             <div id="map"></div>
-            <div id="wrap-list">
-                <div id="myUL"></div>
+            <!-- Location information pop-up on the map div-->
+            <div id="infowindow-content">
+                <img src="" width="16" height="16" id="place-icon">
+                <span id="place-name"  class="title"></span><br>
+                <span id="place-address"></span>
             </div>
         </div>
   
