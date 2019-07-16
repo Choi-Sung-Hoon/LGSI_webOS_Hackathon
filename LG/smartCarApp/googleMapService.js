@@ -9,7 +9,9 @@ function initialize()
 {
     geocoder = new google.maps.Geocoder();
     myMap = createMap(latitude, longitude);
+    autoComplete(myMap);
 }
+
 
 function createMap(lat, lng)
 {
@@ -18,6 +20,7 @@ function createMap(lat, lng)
         zoom: 17,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
+
     return new google.maps.Map(document.getElementById('map'), mapOptions);
 }
 
