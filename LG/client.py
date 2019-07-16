@@ -3,6 +3,8 @@ import thread
 import time
 import sys
 import json
+import gps
+import requests
 
 serverIp = "192.168.43.138"
 serverPort = "9999"
@@ -11,6 +13,10 @@ wsUri = "ws://" + serverIp + ":" + serverPort
 deviceId = 1
 deviceType = "raspbian"
 deviceIp = ""
+
+# gps data
+session = gps.gps("localhost", "2947")
+session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
 
 def on_message(ws, message):
     parsed = json.loads(message)
@@ -36,14 +42,22 @@ def on_message(ws, message):
         count = 1
         while True:
             time.sleep(1)
+            rep = session.next()
+            try:
+                if(rep["class"] == "TPV"):
+                    latitude = rep.lat
+                    longitude = rep.lon
+            except Exception as e:
+                print("Error occured while getting GPS data: " + str(e))
+
             response = {
                 "deviceIp": deviceIp,
                 "method": "updateLocation",
                 "payload":
                 {
                     "deviceId": deviceId,
-                    "latitude": "12.933507",
-                    "longitude": "77.6046419",
+                    "latitude": latitude,
+                    "longitude": longitude,
                     "count": count
                 }
             }
