@@ -21,6 +21,10 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+#searchBar {
+    width: 75%;
+}
+
 .wrap-inputDestination {
     width: 100%;
     position: relative;
@@ -155,6 +159,69 @@ textarea.inputDestination {
     left: 0;
 }
 
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 90px;
+    height: 50px;
+    vertical-align:middle;
+    margin-left: 20px;
+}
+
+/* Hide default HTML checkbox */
+
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 37px;
+    width: 37px;
+    left: 6px;
+    bottom: 6px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #FF0000;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #FF0000;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(40px);
+    -ms-transform: translateX(40px);
+    transform: translateX(40px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
 #contents {
     display: flex;
 }
@@ -192,6 +259,7 @@ ul li {
 ul li:nth-child(odd) {
     background: #f9f9f9;
 }
+
 
 /* Optional: Makes the sample page fill the window. */
 html,
