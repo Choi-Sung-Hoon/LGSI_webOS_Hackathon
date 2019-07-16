@@ -20,7 +20,7 @@
 </head>
 
 <script>
-    // list JS
+// list JS
 var myNodelist = document.getElementsByTagName("li");
 var i;
 
@@ -43,17 +43,6 @@ function newElement()
     document.getElementById("myInput").value = ""; // empty searchBar
 }
 
-/*
-// on/off button JS
-var check = $("input[type='checkbox']");
-check.click(function(){
-    $("p").toggle();
-});
-*/
-
-//checkbox = document.getElementById("check_id");
-//checkbox.addEventListener('click', handleClick(this), false);
-
 function handleClick(cb) {  
   if(cb.checked)
   {
@@ -63,8 +52,6 @@ function handleClick(cb) {
     ambulanceOff();
     cb.stopPropagation();
 }
-
-
 </script>
 
 <body>
@@ -75,28 +62,6 @@ function handleClick(cb) {
             <div class="wrap-inputDestination validate-input" data-validate="Destination is required">
                 <input id="pac-input" class="inputDestination" type="text" name="name" placeholder="Enter a Location">
                 <span class="focus-inputDestination"></span>
-            </div>
-            <div class="pac-card" id="pac-card">
-                <!-- Radio button div-->
-                <div>
-                    <div id="type-selector" class="pac-controls">
-                        <input type="radio" name="type" id="changetype-all" checked="checked">
-                        <label for="changetype-all">All</label>
-
-                        <input type="radio" name="type" id="changetype-establishment">
-                        <label for="changetype-establishment">Establishments</label>
-
-                        <input type="radio" name="type" id="changetype-address">
-                        <label for="changetype-address">Addresses</label>
-
-                        <input type="radio" name="type" id="changetype-geocode">
-                        <label for="changetype-geocode">Geocodes</label>
-                    </div>
-                    <div id="strict-bounds-selector" class="pac-controls">
-                        <input type="checkbox" id="use-strict-bounds" value="">
-                        <label for="use-strict-bounds">Strict Bounds</label>
-                    </div>
-                </div>
             </div>
             <div>
                 <label class="switch">
