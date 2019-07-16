@@ -41,28 +41,25 @@ def on_message(ws, message):
     def run(*args):
         count = 1
         while True:
-            time.sleep(1)
             rep = session.next()
             try:
                 if(rep["class"] == "TPV"):
-                    latitude = rep.lat
-                    longitude = rep.lon
+                    response = {
+                        "deviceIp": deviceIp,
+                        "method": "updateLocation",
+                        "payload":
+                        {
+                            "deviceId": deviceId,
+                            "latitude": str(rep.lat),
+                            "longitude": str(rep.lon),
+                            "count": count
+                        }
+                    }
+                    count += 1
+                    ws.send(json.dumps(response))
+                    time.sleep(1)
             except Exception as e:
                 print("Error occured while getting GPS data: " + str(e))
-
-            response = {
-                "deviceIp": deviceIp,
-                "method": "updateLocation",
-                "payload":
-                {
-                    "deviceId": deviceId,
-                    "latitude": latitude,
-                    "longitude": longitude,
-                    "count": count
-                }
-            }
-            count += 1
-            ws.send(json.dumps(response))
         ws.close()
     thread.start_new_thread(run, ())
 
