@@ -185,7 +185,7 @@ def handleDistance():
                 for ambulance in ambulanceList:
                     lat2 = float(ambulance.getLatitude())
                     lon2 = float(ambulance.getLongitude())
-                    d = distance(lat1, lon1, lat2, lon2) * 1000
+                    d = round(distance(lat1, lon1, lat2, lon2) * 1000)
                     # if ambulance is in 500m
                     if d < 500:
                         # create message
