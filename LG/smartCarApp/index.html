@@ -26,29 +26,13 @@
         <h2 style="padding-right: 30px">Let's cue, navi</h2>
         <!-- Search bar div-->
         <div class="wrap-inputDestination validate-input" data-validate="Destination is required">
-            <input id="pac-input" class="inputDestination" type="text" name="name" placeholder="Enter a Location">
-            <span class="focus-inputDestination"></span>
-        </div>
-        <div class="pac-card" id="pac-card">
-            <!-- Radio button div-->
-            <div>
-                <div id="type-selector" class="pac-controls">
-                    <input type="radio" name="type" id="changetype-all" checked="checked">
-                    <label for="changetype-all">All</label>
-
-                    <input type="radio" name="type" id="changetype-establishment">
-                    <label for="changetype-establishment">Establishments</label>
-
-                    <input type="radio" name="type" id="changetype-address">
-                    <label for="changetype-address">Addresses</label>
-
-                    <input type="radio" name="type" id="changetype-geocode">
-                    <label for="changetype-geocode">Geocodes</label>
-                </div>
-                <div id="strict-bounds-selector" class="pac-controls">
-                    <input type="checkbox" id="use-strict-bounds" value="">
-                    <label for="use-strict-bounds">Strict Bounds</label>
-                </div>
+            <div class="wrap-input">
+                <input id="origin-input" class="inputDestination" type="text" name="name" placeholder="Enter a Start Point">
+                <span class="focus-inputDestination"></span>
+            </div>
+            <div class="wrap-input">
+                <input id="destination-input" class="inputDestination" type="text" name="name" placeholder="Enter a End Point">
+                <span class="focus-inputDestination"></span>
             </div>
         </div>
     </div>

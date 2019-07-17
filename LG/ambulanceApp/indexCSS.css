@@ -1,5 +1,5 @@
 #map {
-    height: 600px;
+    height: 650px;
     /* The height is 400 pixels */
     width: 100%;
     /* The width is the width of the web page */
@@ -31,29 +31,6 @@
     display: inline;
 }
 
-.pac-card {
-    width: 400px;
-    margin: 10px 10px 0 0;
-    border-radius: 2px 0 0 2px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    outline: none;
-//box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    background-color: #fff;
-    font-family: 'Quicksand', sans-serif;
-}
-
-.pac-controls {
-    display: inline-block;
-    padding: 5px 11px;
-}
-
-.pac-controls label {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 13px;
-    font-weight: 300;
-}
-
 #title{
     display: flex;
     align-items: center; /* 수직 중앙 정렬 */
@@ -63,13 +40,16 @@
     font-family: 'Quicksand', sans-serif;
 }
 
-#searchBar {
-    width: 75%;
-}
-
 .wrap-inputDestination {
     width: 100%;
     position: relative;
+    display: flex;
+}
+
+.wrap-input {
+    position: relative;
+    width: 100%;
+    margin-right: 50px;
 }
 
 .inputDestination {
