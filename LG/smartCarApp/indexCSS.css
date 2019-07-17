@@ -1,126 +1,117 @@
 /* Always set the map height explicitly to define the size of the div
-         * element that contains the map. */
-#outline{
-    padding-top: 10px;
-    padding-right: 30px;
-    padding-bottom: 50px;
-    padding-left: 30px;
-    height: 90%;
-}
+    * element that contains the map. */
+    #outline{
+        padding-top: 10px;
+        padding-right: 30px;
+        padding-bottom: 50px;
+        padding-left: 30px;
+        height: 90%;
+    }
+    
+    #map{
+        height: 650px;
+        /* The height is 400 pixels */
+        width: 100%;
+        /* The width is the width of the web page */
+    }
+    
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+    }
+    #description {
+        font-family: 'Quicksand', sans-serif;
+        font-size: 15px;
+        font-weight: 300;
+    }
+    
+    #infowindow-content .title {
+        font-weight: bold;
+    }
+    
+    #infowindow-content {
+        display: none;
+    }
+    
+    #map #infowindow-content {
+        display: inline;
+    }
+    
+    #title{
+        display: flex;
+        align-items: center; /* 수직 중앙 정렬 */
+        justify-content: center;
+        height: 100px;
+        width: 100%;
+        font-family: 'Quicksand', sans-serif;
+    }
+    
+    .wrap-inputDestination {
+        width: 100%;
+        position: relative;
+    }
+    
+    .inputDestination {
+        display: block;
+        width: 100%;
+        background: transparent;
+        font-size: 18px;
+        color: #333333;
+        line-height: 1.2;
+        padding: 0 5px;
+        border: 0px;
+        outline: none;
+        font-family: 'Quicksand', sans-serif;
+    }
+    
+    .focus-inputDestination {
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+    
+    .focus-inputDestination::before {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+    
+        -webkit-transition: all 0.4s;
+        -o-transition: all 0.4s;
+        -moz-transition: all 0.4s;
+        transition: all 0.4s;
+    
+        background: red;
+    }
+    
+    input.inputDestination {
+        height: 40px;
+    }
 
-#map {
-    height: 650px;
-    /* The height is 400 pixels */
-    width: 100%;
-    /* The width is the width of the web page */
-}
-/* Optional: Makes the sample page fill the window. */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff;
-}
-#description {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 15px;
-    font-weight: 300;
-}
-
-#infowindow-content .title {
-    font-weight: bold;
-}
-
-#infowindow-content {
-    display: none;
-}
-
-#map #infowindow-content {
-    display: inline;
-}
-
-#title{
-    display: flex;
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center;
-    height: 100px;
-    width: 100%;
-    font-family: 'Quicksand', sans-serif;
-}
-
-.wrap-inputDestination {
-    width: 100%;
-    position: relative;
-    display: flex;
-}
-
-.wrap-input {
-    position: relative;
-    width: 100%;
-    margin-right: 50px;
-}
-
-.inputDestination {
-    display: block;
-    width: 100%;
-    background: transparent;
-    font-size: 18px;
-    color: #333333;
-    line-height: 1.2;
-    padding: 0 5px;
-    border: 0px;
-    outline: none;
-    font-family: 'Quicksand', sans-serif;
-}
-
-.focus-inputDestination {
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-}
-
-.focus-inputDestination::before {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
-
-    background: red;
-}
-
-input.inputDestination {
-    height: 40px;
-}
-
-
-textarea.inputDestination {
-    min-height: 110px;
-    padding-top: 9px;
-    padding-bottom: 13px;
-}
-
-
-.inputDestination:focus + .focus-inputDestination::before {
-    width: 100%;
-}
-
-.has-val.inputDestination + .focus-inputDestination::before {
-    width: 100%;
-}
-
-
-#contents {
-    display: flex;
-}
+    textarea.inputDestination {
+        min-height: 110px;
+        padding-top: 9px;
+        padding-bottom: 13px;
+    }
+    
+    .inputDestination:focus + .focus-inputDestination::before {
+        width: 100%;
+    }
+    
+    .has-val.inputDestination + .focus-inputDestination::before {
+        width: 100%;
+    }
+    
+    #contents {
+        display: flex;
+    }

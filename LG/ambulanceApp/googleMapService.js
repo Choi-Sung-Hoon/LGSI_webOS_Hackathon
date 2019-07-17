@@ -9,106 +9,41 @@ function initialize()
 {
     geocoder = new google.maps.Geocoder();
     myMap = createMap(latitude, longitude);
-    //autoComplete(myMap);
-    new AutocompleteDirectionsHandler(myMap);
+    autoComplete(myMap);
 }
 
-// Autocomplete & Direction function
-function AutocompleteDirectionsHandler(map) {
-    this.map = map;
-    this.originPlaceId = null; // start point
-    this.destinationPlaceId = null; // end point
-    this.travelMode = 'DRIVING'; // routing mode
-    this.directionsService = new google.maps.DirectionsService;
-    this.directionsDisplay = new google.maps.DirectionsRenderer;
-    this.directionsDisplay.setMap(map);
+function setRoutes(lat1, lng1, lat2, lng2)
+{
+    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(myMap);
+    var rendererOptions = {
+        map: map,
+        suppressMarkers : true,
+        preserveViewport: true
+    };
 
-    var originInput = document.getElementById('origin-input');
-    var destinationInput = document.getElementById('destination-input');
-    //var modeSelector = document.getElementById('mode-selector');
-
-    // start point Autocomplete
-    var originAutocomplete = new google.maps.places.Autocomplete(originInput);
-    // Specify just the place data fields that you need.
-    originAutocomplete.setFields(['place_id']);
-
-    // end point Autocomplete
-    var destinationAutocomplete =
-        new google.maps.places.Autocomplete(destinationInput);
-    // Specify just the place data fields that you need.
-    destinationAutocomplete.setFields(['place_id']);
-
-    /* 모드 driving으로 고정
-    this.setupClickListener('changemode-walking', 'WALKING');
-    this.setupClickListener('changemode-transit', 'TRANSIT');
-    this.setupClickListener('changemode-driving', 'DRIVING');
-    */
-
-    // setting start point and end point
-    this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
-    this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
-
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
-    //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
-}
-
-// Sets a listener on a radio button to change the filter type on Places
-// Autocomplete.
-AutocompleteDirectionsHandler.prototype.setupClickListener = function(
-    id, mode) {
-    var radioButton = document.getElementById(id);
-    var me = this;
-
-    radioButton.addEventListener('click', function() {
-        me.travelMode = mode;
-        me.route();
-    });
-};
-
-AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(
-    autocomplete, mode) {
-    var me = this;
-    autocomplete.bindTo('bounds', this.map);
-
-    autocomplete.addListener('place_changed', function() {
-        var place = autocomplete.getPlace();
-
-        if (!place.place_id) {
-            window.alert('Please select an option from the dropdown list.');
-            return;
-        }
-        if (mode === 'ORIG') {
-            me.originPlaceId = place.place_id;
-        } else {
-            me.destinationPlaceId = place.place_id;
-        }
-        me.route();
-    });
-};
-
-AutocompleteDirectionsHandler.prototype.route = function() {
-    if (!this.originPlaceId || !this.destinationPlaceId) {
-        return;
-    }
-    var me = this;
-
-    this.directionsService.route(
+    var request = {
+        origin: new google.maps.LatLng(lat1, lng1),
+        destination: new google.maps.LatLng(lat2, lng2),
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
+  
+    directionsService.route(request, function(response, status)
+    {
+        if (status == 'OK')
         {
-            origin: {'placeId': this.originPlaceId},
-            destination: {'placeId': this.destinationPlaceId},
-            travelMode: this.travelMode
-        },
-        function(response, status) {
-            if (status === 'OK') {
-                me.directionsDisplay.setDirections(response);
-            } else {
-                window.alert('Directions request failed due to ' + status);
-            }
-        });
-};
+            directionsDisplay.setDirections(response);
+        }
+        else
+        {
+            alert('Directions request failed due to ' + status);
+        }
+    });
+}
 
-/*
+var dest_latitude;
+var dest_longitude;
 // 검색창 아래 자동완성 및 위치 찾기 함수
 function autoComplete(map) {
     var card = document.getElementById('pac-card');
@@ -143,8 +78,7 @@ function autoComplete(map) {
         if (place.geometry.viewport) {
             map.fitBounds(place.geometry.viewport);
         } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(17);  // Why 17? Because it looks good.
+            map.setZoom(16);  // Why 17? Because it looks good.
         }
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
@@ -157,34 +91,20 @@ function autoComplete(map) {
                 (place.address_components[2] && place.address_components[2].short_name || '')
             ].join(' ');
         }
+        if (place.geometry.location)
+        {
+            var myLatLng = place.geometry.location;
+            dest_latitude = myLatLng.lat();
+            dest_longitude = myLatLng.lng();
+            setRoutes(latitude, longitude, dest_latitude, dest_longitude);
+        }
 
         infowindowContent.children['place-icon'].src = place.icon;
         infowindowContent.children['place-name'].textContent = place.name;
         infowindowContent.children['place-address'].textContent = address;
         infowindow.open(map, marker);
     });
-
-    // Autocomplete.
-    function setupClickListener(id, types) {
-        var radioButton = document.getElementById(id);
-        radioButton.addEventListener('click', function () {
-            autocomplete.setTypes(types);
-        });
-    }
-
-    setupClickListener('changetype-all', []);
-    setupClickListener('changetype-address', ['address']);
-    setupClickListener('changetype-establishment', ['establishment']);
-    setupClickListener('changetype-geocode', ['geocode']);
-
-    document.getElementById('use-strict-bounds')
-        .addEventListener('click', function () {
-            console.log('Checkbox clicked! New state=' + this.checked);
-            autocomplete.setOptions({strictBounds: this.checked});
-        });
-
 }
-*/
 
 function createMap(lat, lng)
 {
@@ -194,6 +114,7 @@ function createMap(lat, lng)
         draggable: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
+
     return new google.maps.Map(document.getElementById('map'), mapOptions);
 }
 
@@ -207,7 +128,7 @@ function createMarker(lat, lng)
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         map: myMap,
-        draggable: false,
+        //draggable: false,
         //icon: "http://maps.google.com/mapfiles/ms/micons/man.png";
     });
     // marker.addListener('click', toggleBounce); //click evnet가 아니라 웹소켓에서 뭐가 날라오는 이벤트가 발생하면 저렇게 깜박이는 게 낫겠다.

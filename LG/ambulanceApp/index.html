@@ -18,54 +18,47 @@
     <!-- client-server communication -->
     <script src="websocket.js" charset="utf-8"></script>
 </head>
-
 <script>
-function handleClick(cb) {  
-  if(cb.checked)
-  {
-    ambulanceOn();
+function handleClick(event) {  
+    if(cb.checked)
+    {
+        ambulanceOn();
     }
-  else
-    ambulanceOff();
-    cb.stopPropagation();
+    else
+        ambulanceOff();
+    event.stopPropagation();
 }
 </script>
 
 <body>
-    <div id="outline">
-        <div id="title">
-            <h2 style="padding-right: 30px">Let's cue, navi</h2>
-            <!-- Search bar div-->
-            <div class="wrap-inputDestination validate-input" data-validate="Destination is required">
-                <div class="wrap-input">
-                    <input id="origin-input" class="inputDestination" type="text" name="name" placeholder="Enter a Start Point">
-                    <span class="focus-inputDestination"></span>
-                </div>
-                <div class="wrap-input">
-                    <input id="destination-input" class="inputDestination" type="text" name="name" placeholder="Enter a End Point">
-                    <span class="focus-inputDestination"></span>
-                </div>
-            </div>
-            <div>
-                <label class="switch">
-                    <!-- on/off check -->
-                    <input type="checkbox" onclick="handleClick(this)" id="check_id">
-                    <!-- round button -->
-                    <span class="slider round"></span>
-                </label>
-            </div>
+<div id="outline">
+    <div id="title">
+        <h2 style="padding-right: 30px">Let's cue, navi</h2>
+        <!-- Search bar div-->
+        <div class="wrap-inputDestination validate-input" data-validate="Destination is required">
+            <input id="pac-input" class="inputDestination" type="text" name="name" placeholder="Enter a Location">
+            <span class="focus-inputDestination"></span>
         </div>
-        <div id="contents">
-            <div id="map"></div>
-            <!-- Location information pop-up on the map div-->
-            <div id="infowindow-content">
-                <img src="" width="16" height="16" id="place-icon">
-                <span id="place-name"  class="title"></span><br>
-                <span id="place-address"></span>
-            </div>
+        <div>
+            <label class="switch">
+                <!-- on/off check -->
+                <input type="checkbox" onclick="handleClick(this)">
+                <!-- round button -->
+                <span class="slider round"></span>
+            </label>
         </div>
-  
     </div>
+    <div id="contents">
+        <div id="map"></div>
+        <!-- Location information pop-up on the map div-->
+        <div id="infowindow-content">
+            <img src="" width="16" height="16" id="place-icon">
+            <span id="place-name"  class="title"></span><br>
+            <span id="place-address"></span>
+        </div>
+    </div>
+
+</div>
 </body>
 
 </html>
