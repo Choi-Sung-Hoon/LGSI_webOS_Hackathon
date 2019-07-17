@@ -57,6 +57,9 @@ def on_message(ws, message):
                     }
                     count += 1
                     ws.send(json.dumps(response))
+                    print("Send coordinations to the server {0}".format(serverIp))
+                    print(json.dumps(response, indent=4, separators=(',', ':')))
+                    print("*****************************************")
                     time.sleep(1)
             except Exception as e:
                 print("Error occured while getting GPS data: " + str(e))
