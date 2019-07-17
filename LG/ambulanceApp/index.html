@@ -20,32 +20,6 @@
 </head>
 
 <script>
-<<<<<<< HEAD
-// list JS
-var myNodelist = document.getElementsByTagName("li");
-var i;
-
-// Add input text in searchBar to list
-function newElement()
-{
-    var li = document.createElement("li");
-    var inputValue = document.getElementById("myInput").value;
-    var t = document.createTextNode(inputValue);
-    li.appendChild(t);
-    // if user put nothing then alert
-    if (inputValue === '')
-        alert("Nothing to Search!");
-    else
-    {
-        // add text to list on html
-        document.getElementById("myUL").appendChild(li);
-        $("#myUL").append("<hr>");
-    }
-    document.getElementById("myInput").value = ""; // empty searchBar
-}
-=======
->>>>>>> 746b8c11ebd8864cfe31c2129b89d2b91f8a216c
-
 function handleClick(cb) {  
   if(cb.checked)
   {
