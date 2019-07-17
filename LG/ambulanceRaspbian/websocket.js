@@ -1,4 +1,5 @@
-var serverIp = "13.233.212.10";
+// aws : 13.233.212.10
+var serverIp = "192.168.43.138";
 var serverPort = "9999";
 var wsUri = "ws://" + serverIp + ":" + serverPort;
 
