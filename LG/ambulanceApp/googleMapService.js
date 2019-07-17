@@ -32,7 +32,6 @@ function AutocompleteDirectionsHandler(map) {
     // Specify just the place data fields that you need.
     originAutocomplete.setFields(['place_id']);
 
-
     // end point Autocomplete
     var destinationAutocomplete =
         new google.maps.places.Autocomplete(destinationInput);
@@ -50,8 +49,7 @@ function AutocompleteDirectionsHandler(map) {
     this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
 
     this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
-        destinationInput);
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
     //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
 }
 
