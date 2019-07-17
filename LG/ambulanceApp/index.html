@@ -20,6 +20,7 @@
 </head>
 
 <script>
+<<<<<<< HEAD
 // list JS
 var myNodelist = document.getElementsByTagName("li");
 var i;
@@ -42,6 +43,8 @@ function newElement()
     }
     document.getElementById("myInput").value = ""; // empty searchBar
 }
+=======
+>>>>>>> 746b8c11ebd8864cfe31c2129b89d2b91f8a216c
 
 function handleClick(cb) {  
   if(cb.checked)
@@ -60,8 +63,14 @@ function handleClick(cb) {
             <h2 style="padding-right: 30px">Let's cue, navi</h2>
             <!-- Search bar div-->
             <div class="wrap-inputDestination validate-input" data-validate="Destination is required">
-                <input id="pac-input" class="inputDestination" type="text" name="name" placeholder="Enter a Location">
-                <span class="focus-inputDestination"></span>
+                <div class="wrap-input">
+                    <input id="origin-input" class="inputDestination" type="text" name="name" placeholder="Enter a Start Point">
+                    <span class="focus-inputDestination"></span>
+                </div>
+                <div class="wrap-input">
+                    <input id="destination-input" class="inputDestination" type="text" name="name" placeholder="Enter a End Point">
+                    <span class="focus-inputDestination"></span>
+                </div>
             </div>
             <div>
                 <label class="switch">
