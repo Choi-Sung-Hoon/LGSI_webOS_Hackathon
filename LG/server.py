@@ -3,6 +3,7 @@ from math import sin, cos, sqrt, atan2, radians
 import socket
 import json
 import re
+import requests
 
 debug = 1
 
@@ -49,7 +50,7 @@ socketList = dict()
 deviceList = list()
 ambulanceList = list()
 pattern = re.compile('\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
-serverIp = socket.gethostbyname(socket.gethostname())
+serverIp = requests.get("http://ipecho.net/plain?").text
 class socketHandler(WebSocket):
     # when a device is connected
     def handleConnected(self):
