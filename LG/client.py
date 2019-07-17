@@ -6,7 +6,7 @@ import json
 import gps
 import requests
 
-serverIp = "192.168.43.138"
+serverIp = "13.233.212.10"
 serverPort = "9999"
 wsUri = "ws://" + serverIp + ":" + serverPort
 

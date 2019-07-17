@@ -12,7 +12,6 @@ function initialize()
     autoComplete(myMap);
 }
 
-
 function createMap(lat, lng)
 {
     var mapOptions = {
