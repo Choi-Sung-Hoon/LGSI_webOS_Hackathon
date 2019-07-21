@@ -1,4 +1,5 @@
-// aws : 13.233.212.10
+// local network : 192.168.43.138
+// AWS : 13.233.212.10
 var serverIp = "192.168.43.138";
 var serverPort = "9999";
 var wsUri = "ws://" + serverIp + ":" + serverPort;
@@ -91,7 +92,7 @@ function onMessage(event)
 				{
 					for (var i = 0; i < ambulanceList.length; i++)
 					{
-						ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+						ambulanceMarkers.push(createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude)));
 						ambulanceMarkers[i].setIcon('ambulance.png');
 					}
 				}
@@ -104,7 +105,7 @@ function onMessage(event)
 							if(i < ambulanceMarkers.length)
 								moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
 							else
-								ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+								ambulanceMarkers[i].push(createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude)));
 						}
 					}
 					if(ambulanceMarkers.length == ambulanceList.length)
@@ -117,7 +118,7 @@ function onMessage(event)
 						for(var i = 0; i < ambulanceMarkers.length; i++)
 						{
 							if(!(ambulanceMarkers[i] in ambulanceList))
-								deleteMarke(ambulanceMarkers[i]);
+								deleteMarker(ambulanceMarkers[i]);
 							else
 								moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
 						}
