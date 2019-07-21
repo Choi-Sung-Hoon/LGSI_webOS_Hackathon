@@ -3,9 +3,8 @@ from math import sin, cos, sqrt, atan2, radians
 import socket
 import json
 import re
-import requests
 
-debug = 0
+debug = 1
 
 class Device:
     def __init__(self, deviceId=0, deviceIp="", deviceType="normal", latitude=0.0, longitude=0.0):
@@ -80,8 +79,9 @@ class socketHandler(WebSocket):
     # when a connection is closed
     def handleClose(self):
         deviceIp = re.search(pattern, self.address[0]).group()
-        print("Device {0} has disconnected.".format(deviceIp))
-        print("*****************************************")
+        if debug:
+            print("Device {0} has disconnected.".format(deviceIp))
+            print("*****************************************")
         # remove device object
         del socketList[deviceIp]
 
