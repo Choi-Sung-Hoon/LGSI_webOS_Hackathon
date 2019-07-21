@@ -5,17 +5,24 @@ var geocoder;
 var myMarker;
 var ambulanceMarkers = new Array();
 
+// create routes
+var directionsService;
+var directionsDisplay;
+
 function initialize()
 {
+    // for gps location
     geocoder = new google.maps.Geocoder();
+    // for map
     myMap = createMap(latitude, longitude);
     autoComplete(myMap);
+    // for routes
+    directionsService = new google.maps.DirectionsService();
+    directionsDisplay = new google.maps.DirectionsRenderer();
 }
 
 function setRoutes(lat1, lng1, lat2, lng2)
 {
-    var directionsService = new google.maps.DirectionsService();
-    var directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(myMap);
     var rendererOptions = {
         map: map,
