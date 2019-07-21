@@ -88,40 +88,25 @@ function onMessage(event)
 			ambulanceList = message.payload.ambulanceList;
 			if (ambulanceList.length != 0) //엠뷸런스 on 상태
 			{
+				var marker;
 				if (ambulanceMarkers.length == 0) //만들어진 마커가 없다는 거니까
 				{
 					for (var i = 0; i < ambulanceList.length; i++)
 					{
-						ambulanceMarkers.push(createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude)));
-						ambulanceMarkers[i].setIcon('ambulance.png');
+						marker = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+						marker.setIcon('ambulance.png');
+						ambulanceMarkers.push(marker);
 					}
 				}
 				else
 				{
-					if(ambulanceMarkers.length < ambulanceList.length)
+					for (var i = 0; i < ambulanceMarkers.length; i++)
+						deleteMarker(ambulanceMarkers[i]);
+					for (var i = 0; i < ambulanceList.length; i++)
 					{
-						for(var i = 0; i < ambulanceList.length; i++)
-						{
-							if(i < ambulanceMarkers.length)
-								moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-							else
-								ambulanceMarkers[i].push(createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude)));
-						}
-					}
-					if(ambulanceMarkers.length == ambulanceList.length)
-					{
-						for(var i = 0; i < ambulanceList.length; i++)
-							moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-					}
-					if(ambulanceMarkers.length > ambulanceList.length)
-					{
-						for(var i = 0; i < ambulanceMarkers.length; i++)
-						{
-							if(!(ambulanceMarkers[i] in ambulanceList))
-								deleteMarker(ambulanceMarkers[i]);
-							else
-								moveMarker(ambulanceMarkers[i], parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-						}
+						marker = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+						marker.setIcon('ambulance.png');
+						ambulanceMarkers.push(marker);
 					}
 				}
 			}

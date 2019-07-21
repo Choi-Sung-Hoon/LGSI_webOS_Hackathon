@@ -92,8 +92,9 @@ function onMessage(event)
 				{
 					for (var i = 0; i < ambulanceList.length; i++)
 					{
-						ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-						ambulanceMarkers[i].setIcon('icon.png')
+						marker = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+						marker.setIcon('ambulance.png');
+						ambulanceMarkers.push(marker);
 					}
 				}
 				else
@@ -102,8 +103,9 @@ function onMessage(event)
 						deleteMarker(ambulanceMarkers[i]);
 					for (var i = 0; i < ambulanceList.length; i++)
 					{
-						ambulanceMarkers[i] = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
-						ambulanceMarkers[i].setIcon('icon.png')
+						marker = createMarker(parseFloat(ambulanceList[i].latitude), parseFloat(ambulanceList[i].longitude));
+						marker.setIcon('ambulance.png');
+						ambulanceMarkers.push(marker);
 					}
 				}
 			}

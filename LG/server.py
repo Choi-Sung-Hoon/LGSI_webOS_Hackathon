@@ -5,7 +5,7 @@ import json
 import re
 import requests
 
-debug = 1
+debug = 0
 
 class Device:
     def __init__(self, deviceId=0, deviceIp="", deviceType="normal", latitude=0.0, longitude=0.0):
@@ -50,7 +50,7 @@ socketList = dict()
 deviceList = list()
 ambulanceList = list()
 pattern = re.compile('\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
-serverIp = requests.get("http://ipecho.net/plain?").text
+serverIp = socket.gethostbyname(socket.gethostname())
 class socketHandler(WebSocket):
     # when a device is connected
     def handleConnected(self):
