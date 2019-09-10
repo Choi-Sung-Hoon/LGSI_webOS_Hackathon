@@ -1,6 +1,6 @@
 // local network : 192.168.43.138
 // AWS : 13.233.212.10
-var serverIp = "192.168.43.138";
+var serverIp = "172.16.6.104";
 var serverPort = "9999";
 var wsUri = "ws://" + serverIp + ":" + serverPort;
 

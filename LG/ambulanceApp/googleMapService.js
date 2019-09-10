@@ -85,7 +85,7 @@ function autoComplete(map) {
         if (place.geometry.viewport) {
             map.fitBounds(place.geometry.viewport);
         } else {
-            map.setZoom(16);  // Why 17? Because it looks good.
+            map.setZoom(17);  // Why 17? Because it looks good.
         }
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
